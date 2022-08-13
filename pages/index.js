@@ -1,11 +1,19 @@
 import Dropdown from '../components/Dropdown'
-import SelectBox from '../components/SelectBox'
 
-export default function Home() {
+export default function Home(props) {
+
+  const { data } = props
   return (
     <div >
-      <Dropdown />
-      <SelectBox />
+      <Dropdown title="industry" data={data} />
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const listedData = await fetch(`https://api.coinpaprika.com/v1/coins`)
+  const data = await listedData.json();
+  return {
+    props: { data },
+  }
 }

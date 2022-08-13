@@ -1,0 +1,16 @@
+.select-box-container {
+  background-color: white;
+  width: 30rem;
+  height: 17rem;
+  margin: 1rem 0;
+  padding: 1rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 2px 3px 5px 1px lightgrey;
+  overflow-y: scroll;
+}
+
+.names-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}

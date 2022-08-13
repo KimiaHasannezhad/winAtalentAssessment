@@ -1,7 +1,7 @@
-import '../styles/globals.css'
-import '../styles/dropdown.css'
-import '../styles/searchBox.css'
-import '../styles/selectBox.css'
+import '../styles/globals.scss'
+import '../styles/dropdown.scss'
+import '../styles/searchBox.scss'
+import '../styles/selectBox.scss'
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />

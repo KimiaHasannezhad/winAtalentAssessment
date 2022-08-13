@@ -1,0 +1,19 @@
+.container {
+    margin: 2rem;
+}
+
+.dropdown-section {
+  & > button {
+    min-width: 10rem;
+    background-color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 1.5rem;
+    border: 1px solid gray;
+    text-align: left;
+    cursor: pointer;
+    transition: 1s;
+      &:hover {
+      background-color: rgb(249, 249, 249);
+       }
+  }
+}
