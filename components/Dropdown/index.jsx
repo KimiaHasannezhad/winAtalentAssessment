@@ -1,16 +1,15 @@
-import { useState, useEffect, useContext } from 'react'
-import { MultiSelectCounterContext } from '../../context/MultiSelectCounterContext'
+import { useState, useEffect } from 'react'
 import SelectBox from '../SelectBox'
+import Image from 'next/image'
 
 const Dropdown = (props) => {
   const { title, allowMultiSelect, data } = props
   const [showSelectBox, setShowSelectBox] = useState(false)
   const [sortedList, setSortedList] = useState()
-  const { counter } = useContext(MultiSelectCounterContext)
-  const [selectedItem, setSelectedItem] = useState()
-  const [selectedMode, setSelectedMode] = useState('default')
+  const [selectedItems, setSelectedItems] = useState([])
+  const [selectedMode, setSelectedMode] = useState(false)
 
-  const setSingleSelectItem = (value) => setSelectedItem(value)
+  const handleSelectedList = (value) => setSelectedItems(value)
 
   const sortData = (data) => {
     const slicedData = data.slice(0, 200)
@@ -26,28 +25,77 @@ const Dropdown = (props) => {
   }, [data])
 
   useEffect(() => {
-    if (counter && selectedItem) {
-      setSelectedMode('selected')
+    if (selectedItems.length > 0) {
+      setSelectedMode(true)
+    } else {
+      setSelectedMode(false)
     }
-  }, [counter, selectedItem])
+  }, [selectedItems])
+
+  const handleCreateMultiSelectBox = () => {
+    return (
+      <>
+        {!selectedMode ? (
+          <>
+            <span>{title}</span>
+            <Image
+              src={require('../../public/img/arrow-down-black.png')}
+            ></Image>
+          </>
+        ) : (
+          <>
+            <span>{title}</span>
+              <span
+                className="bg-color-white text-color-blue d-flex flex-dir-col justify-c-center"
+                id="counter-area"
+              >
+                {selectedItems.length}
+              </span>
+              <Image src={require('../../public/img/arrow-down-white.png')} />
+            
+          </>
+        )}
+      </>
+    )
+  }
+
+  const handleCreateSingleSelectBox = () => {
+    return (
+      <>
+        {!selectedMode ? (
+          <>
+            <span>{title}</span>
+            <Image
+              src={require('../../public/img/arrow-down-black.png')}
+            ></Image>
+          </>
+        ) : (
+          <>
+            <span>{selectedItems[0]}</span>
+            <Image
+              src={require('../../public/img/cross.png')}
+              onClick={() => !allowMultiSelect && setSelectedItems([])}
+            ></Image>
+          </>
+        )}
+      </>
+    )
+  }
 
   return (
     <div className="container">
       <div className="dropdown-section">
         <button
-          className={
-            `${selectedMode === 'selected'}` ? 'bgColor-blue' : 'bgColor-white'
-          }
+          className={` d-flex flex-dir-row justify-c-space-between ${
+            selectedMode ? 'bg-color-blue text-color-white' : 'bg-color-white'
+          }`}
           onClick={() => {
             setShowSelectBox(!showSelectBox)
           }}
         >
-          {title}
-          {allowMultiSelect ? (
-            <span>{counter}</span>
-          ) : (
-            <span>{selectedItem}</span>
-          )}
+          {allowMultiSelect
+            ? handleCreateMultiSelectBox()
+            : handleCreateSingleSelectBox()}
         </button>
       </div>
       <div className="select-box-area">
@@ -55,7 +103,8 @@ const Dropdown = (props) => {
           <SelectBox
             data={sortedList}
             isMultiSelect={allowMultiSelect}
-            setSelectedItem={setSingleSelectItem}
+            selectedItems={selectedItems}
+            setSelectedItems={handleSelectedList}
           />
         )}
       </div>

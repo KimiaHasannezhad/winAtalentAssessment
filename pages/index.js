@@ -4,8 +4,8 @@ export default function Home(props) {
   const { data } = props
   return (
     <div className="d-flex flex-dir-row justify-center">
-      <Dropdown title="cryptocurrency" data={data} allowMultiSelect />
-      <Dropdown title="locations" data={data} allowMultiSelect={false} />
+      <Dropdown title="Crypto" data={data} allowMultiSelect />
+      <Dropdown title="Location" data={data} allowMultiSelect={false} />
     </div>
   )
 }
