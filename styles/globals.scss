@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: 500;
 }
 
 a {
@@ -30,9 +31,48 @@ a {
       border-radius: 2rem;
       margin: 2rem;
     }
+    input[type='checkbox'] {
+      transform: scale(1.2);
+      margin: 0.7rem;
+    }
   }
   body {
     color: rgb(55, 55, 55);
     background: rgb(246, 246, 246);
   }
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-dir-col {
+  flex-direction: column;
+}
+
+.flex-dir-col-reverse {
+  flex-direction: column-reverse;
+}
+.flex-dir-row {
+  flex-direction: row;
+}
+
+.flex-dir-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.justify-c-center {
+  justify-content: center;
+}
+
+.justify-c-space-between {
+  justify-content: space-between;
+}
+
+.dir-rtl {
+  direction: rtl;
+}
+
+.dir-ltr {
+  direction: ltr;
 }

@@ -9,8 +9,34 @@
   overflow-y: scroll;
 }
 
-.names-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
+.radio-section {
+  margin: 0.7rem;
+  & > label {
+    & > input[type='radio'] {
+      appearance: none;
+      border: 1px solid #5e5e5e;
+      width: 1rem;
+      height: 1rem;
+      content: none;
+      outline: none;
+      margin-right: 0.7rem;
+      box-shadow: rgba(169, 169, 169, 0.233) 0px 3px 8px;
+      border-radius: 3px;
+      &:checked {
+        appearance: none;
+        outline: none;
+        padding: 0;
+        content: 1px solid gray;
+        border: 1px solid lightgray;
+      }
+    }
+  }
+}
+
+.radio-section > label > input[type='radio']:checked::before {
+  position: relative;
+  content: url('../public/img/checked-sign.png');
+  width: 1rem;
+  height: 1rem;
+  border-radius: 3px;
 }

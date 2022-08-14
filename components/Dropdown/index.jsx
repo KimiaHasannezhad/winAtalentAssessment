@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import SelectBox from '../SelectBox'
 
 const Dropdown = (props) => {
-  let { title, data } = props
+  const { title, isMultiSelect, data } = props
   const [showSelectBox, setShowSelectBox] = useState(false)
   const [sortedList, setSortedList] = useState()
 
@@ -31,7 +31,9 @@ const Dropdown = (props) => {
         </button>
       </div>
       <div className="select-box-area">
-        {showSelectBox && <SelectBox data={sortedList} />}
+        {showSelectBox && (
+          <SelectBox data={sortedList} isMultiSelect={isMultiSelect} />
+        )}
       </div>
     </div>
   )
