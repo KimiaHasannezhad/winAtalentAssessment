@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import SearchBox from '../SearchBox'
+import DisplaySelectedItems from './DisplaySelectedItems'
 
 const SelectBox = (props) => {
   const {
@@ -16,18 +17,6 @@ const SelectBox = (props) => {
 
   const [listData, setListData] = useState([])
 
-  const handleUpdateListData = () => {
-    listData.forEach((el) => {
-      if (selectedItems.includes(el)) {
-        listData.splice(listData.indexOf(el), 1)
-      }
-    })
-    selectedItems.forEach((item) => {
-      if (!listData.includes(item)) listData.unshift(item)
-    })
-    setListData(listData)
-  }
-
   const addToSelectedList = (value) => {
     const items = selectedItems
     setSelectedItems(isMultiSelect ? [...items, value] : [value])
@@ -40,11 +29,6 @@ const SelectBox = (props) => {
     }
   }
 
-  useEffect(() => {
-    if (isMultiSelect) {
-      handleUpdateListData()
-    }
-  }, [selectedItems, isMultiSelect])
 
   useEffect(() => {
     if (searchValue) {
@@ -70,13 +54,19 @@ const SelectBox = (props) => {
           setSearchListResult={setSearchListResult}
         />
       </div>
+      {selectedItems.length > 0 && isMultiSelect && (
+        <DisplaySelectedItems
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+        />
+      )}
       {isMultiSelect && (
         <>
           <input
             type="checkbox"
             value={'all'}
             onChange={(e) => {
-              e.target.checked ? setSelectedItems(listData) : setSelectedItems([])
+              e.target.checked ? setSelectedItems(data) : setSelectedItems([])
             }}
           ></input>
           <label>All</label>
