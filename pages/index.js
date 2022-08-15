@@ -3,9 +3,11 @@ import Dropdown from '../components/Dropdown'
 export default function Home(props) {
   const { data } = props
   return (
-    <div className="d-flex flex-dir-row justify-center">
-      <Dropdown title="Crypto" data={data} allowMultiSelect />
-      <Dropdown title="Location" data={data} allowMultiSelect={false} />
+    <div className="container">
+      <div className="d-flex flex-dir-row">
+        <Dropdown title="Crypto" data={data} allowMultiSelect />
+        <Dropdown title="Location" data={data} allowMultiSelect={false} />
+      </div>
     </div>
   )
 }

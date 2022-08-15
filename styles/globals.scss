@@ -41,6 +41,16 @@ a {
     background: rgb(246, 246, 246);
   }
 }
+.container {
+  margin: 2rem;
+  #dropdown-area {
+    margin: 1rem;
+    .select-box-area {
+      position: absolute;
+      margin-top: 3rem;
+    }
+  }
+}
 
 .d-flex {
   display: flex;

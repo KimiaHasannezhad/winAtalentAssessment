@@ -84,7 +84,7 @@ const Dropdown = (props) => {
   }
 
   return (
-    <div className="container">
+    <div className="d-flex flex-dir-col" id="dropdown-area">
       <div className="dropdown-section">
         <button
           className={` d-flex flex-dir-row justify-c-space-between ${
