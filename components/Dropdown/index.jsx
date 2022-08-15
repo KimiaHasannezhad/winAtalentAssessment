@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react'
 import SelectBox from '../SelectBox'
 import Image from 'next/image'
+import useComponentVisible from '../../hooks/UseComponentVisible'
 
 const Dropdown = (props) => {
   const { title, allowMultiSelect, data } = props
-  const [showSelectBox, setShowSelectBox] = useState(false)
   const [sortedList, setSortedList] = useState()
   const [selectedItems, setSelectedItems] = useState([])
   const [selectedMode, setSelectedMode] = useState(false)
   const [searchValue, setSearchValue] = useState()
   const [searchListResult, setSearchListResult] = useState([])
+  const {
+    ref,
+    isComponentVisible,
+    setIsComponentVisible,
+  } = useComponentVisible(false)
 
   const handleSelectedList = (value) => setSelectedItems(value)
 
@@ -91,7 +96,7 @@ const Dropdown = (props) => {
             selectedMode ? 'bg-color-blue text-color-white' : 'bg-color-white'
           }`}
           onClick={() => {
-            setShowSelectBox(!showSelectBox)
+            setIsComponentVisible(true)
           }}
         >
           {allowMultiSelect
@@ -99,8 +104,8 @@ const Dropdown = (props) => {
             : handleCreateSingleSelectBox()}
         </button>
       </div>
-      <div className="select-box-area">
-        {showSelectBox && (
+      <div className="select-box-area" ref={ref}>
+        {isComponentVisible && (
           <SelectBox
             data={sortedList}
             title={title}

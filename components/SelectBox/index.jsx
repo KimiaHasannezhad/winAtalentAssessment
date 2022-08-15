@@ -35,7 +35,7 @@ const SelectBox = (props) => {
   }, [searchValue])
 
   useEffect(() => {
-    if (data.length > 0) {
+    if (data?.length > 0) {
       setListData(data)
     }
   }, [data])
