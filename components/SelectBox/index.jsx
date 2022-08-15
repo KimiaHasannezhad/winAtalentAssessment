@@ -16,6 +16,18 @@ const SelectBox = (props) => {
 
   const [listData, setListData] = useState([])
 
+  const handleUpdateListData = () => {
+    listData.forEach((el) => {
+      if (selectedItems.includes(el)) {
+        listData.splice(listData.indexOf(el), 1)
+      }
+    })
+    selectedItems.forEach((item) => {
+      if (!listData.includes(item)) listData.unshift(item)
+    })
+    setListData(listData)
+  }
+
   const addToSelectedList = (value) => {
     const items = selectedItems
     setSelectedItems(isMultiSelect ? [...items, value] : [value])
@@ -27,6 +39,12 @@ const SelectBox = (props) => {
       setSelectedItems(items.filter((item) => item !== value))
     }
   }
+
+  useEffect(() => {
+    if (isMultiSelect) {
+      handleUpdateListData()
+    }
+  }, [selectedItems, isMultiSelect])
 
   useEffect(() => {
     if (searchValue) {
@@ -58,7 +76,7 @@ const SelectBox = (props) => {
             type="checkbox"
             value={'all'}
             onChange={(e) => {
-              e.target.checked ? setSelectedItems(data) : setSelectedItems([])
+              e.target.checked ? setSelectedItems(listData) : setSelectedItems([])
             }}
           ></input>
           <label>All</label>

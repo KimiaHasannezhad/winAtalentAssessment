@@ -36,6 +36,7 @@ const Dropdown = (props) => {
       setSelectedMode(true)
     } else {
       setSelectedMode(false)
+      sortData(data)
     }
   }, [selectedItems])
 
