@@ -1,7 +1,20 @@
+import { useEffect, useState } from 'react'
 import SearchBox from '../SearchBox'
 
 const SelectBox = (props) => {
-  const { data, isMultiSelect, setSelectedItems, selectedItems } = props
+  const {
+    data,
+    isMultiSelect,
+    setSelectedItems,
+    selectedItems,
+    title,
+    searchValue,
+    setSearchValue,
+    searchListResult,
+    setSearchListResult,
+  } = props
+
+  const [listData, setListData] = useState([])
 
   const addToSelectedList = (value) => {
     const items = selectedItems
@@ -15,10 +28,29 @@ const SelectBox = (props) => {
     }
   }
 
+  useEffect(() => {
+    if (searchValue) {
+      setListData(searchListResult)
+    } else setListData(data)
+  }, [searchValue])
+
+  useEffect(() => {
+    if (data.length > 0) {
+      setListData(data)
+    }
+  }, [data])
+
   return (
     <div className="select-box-container">
       <div className="select-box-section">
-        <SearchBox />
+        <SearchBox
+          fieldTitle={title}
+          data={data}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          searchListResult={searchListResult}
+          setSearchListResult={setSearchListResult}
+        />
       </div>
       {isMultiSelect && (
         <>
@@ -32,30 +64,15 @@ const SelectBox = (props) => {
           <label>All</label>
         </>
       )}
-      {data.map((item, index) => (
-        <div key={index}>
-          <div>
-            {isMultiSelect ? (
-              <div>
-                <input
-                  checked={!!selectedItems.find((el) => el === item)}
-                  type="checkbox"
-                  value={item}
-                  onChange={(e) => {
-                    e.target.checked
-                      ? addToSelectedList(e.target.value)
-                      : RemoveFromSelectedList(e.target.value)
-                  }}
-                ></input>
-                <label>{item}</label>
-              </div>
-            ) : (
-              <div className="radio-section">
-                <label key={index} for="radioItem">
+      {listData?.map((item, index) => {
+        return (
+          <div key={index}>
+            <div>
+              {isMultiSelect ? (
+                <div key={index}>
                   <input
-                    type="radio"
                     checked={!!selectedItems.find((el) => el === item)}
-                    name="radioItem"
+                    type="checkbox"
                     value={item}
                     onChange={(e) => {
                       e.target.checked
@@ -63,13 +80,30 @@ const SelectBox = (props) => {
                         : RemoveFromSelectedList(e.target.value)
                     }}
                   ></input>
-                  <span>{item}</span>
-                </label>
-              </div>
-            )}
+                  <label>{item}</label>
+                </div>
+              ) : (
+                <div className="radio-section">
+                  <label key={index} for="radioItem">
+                    <input
+                      type="radio"
+                      checked={!!selectedItems.find((el) => el === item)}
+                      name="radioItem"
+                      value={item}
+                      onChange={(e) => {
+                        e.target.checked
+                          ? addToSelectedList(e.target.value)
+                          : RemoveFromSelectedList(e.target.value)
+                      }}
+                    ></input>
+                    <span>{item}</span>
+                  </label>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

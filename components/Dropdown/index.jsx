@@ -8,6 +8,8 @@ const Dropdown = (props) => {
   const [sortedList, setSortedList] = useState()
   const [selectedItems, setSelectedItems] = useState([])
   const [selectedMode, setSelectedMode] = useState(false)
+  const [searchValue, setSearchValue] = useState()
+  const [searchListResult, setSearchListResult] = useState([])
 
   const handleSelectedList = (value) => setSelectedItems(value)
 
@@ -45,14 +47,13 @@ const Dropdown = (props) => {
         ) : (
           <>
             <span>{title}</span>
-              <span
-                className="bg-color-white text-color-blue d-flex flex-dir-col justify-c-center"
-                id="counter-area"
-              >
-                {selectedItems.length}
-              </span>
-              <Image src={require('../../public/img/arrow-down-white.png')} />
-            
+            <span
+              className="bg-color-white text-color-blue d-flex flex-dir-col justify-c-center"
+              id="counter-area"
+            >
+              {selectedItems.length}
+            </span>
+            <Image src={require('../../public/img/arrow-down-white.png')} />
           </>
         )}
       </>
@@ -102,9 +103,14 @@ const Dropdown = (props) => {
         {showSelectBox && (
           <SelectBox
             data={sortedList}
+            title={title}
             isMultiSelect={allowMultiSelect}
             selectedItems={selectedItems}
             setSelectedItems={handleSelectedList}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            searchListResult={searchListResult}
+            setSearchListResult={setSearchListResult}
           />
         )}
       </div>
